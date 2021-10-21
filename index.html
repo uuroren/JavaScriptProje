@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vize Öncesi Uygulama</title>
+  <link rel="stylesheet" href="css/master.css">
+</head>
+
+<body>
+  <p>
+    <h3>Top: <span id="posTop"></span></h3>
+    <h3>Left: <span id="posLeft"></span></h3>
+  </p>
+  <div id="container">
+    <div id="animate"></div>
+  </div>
+  <p>
+    <button type="button" name="button" id="startBtn">Başlat</button>
+  </p>
+  <script>
+    var myAnimateBox = document.getElementById('animate');
+    var mystartBtn = document.getElementById('startBtn');
+    mystartBtn.addEventListener("click",myAnimate);
+    var posTop = document.getElementById('posTop');
+    var posLeft = document.getElementById('posLeft');
+    var mytop = myAnimateBox.offsetTop;
+    var myleft = myAnimateBox.offsetLeft;
+    posTop.innerHTML = mytop;
+    posLeft.innerHTML = myleft;
+    function myAnimate() {
+      document.getElementById('startBtn').style.display = "none";
+      var id = setInterval(frame,10);
+      var yon = 1;
+      function frame() {
+        // Hareket Top:+ Left:+
+        if (yon==1) {
+          mytop++;
+          myleft++;
+          myAnimateBox.style.top = mytop + "px";
+          myAnimateBox.style.left = myleft + "px";
+          posTop.innerHTML = mytop;
+          posLeft.innerHTML = myleft;
+          if (mytop==window.innerHeight) {
+            yon=2;
+          }
+          if (myleft==window.innerWidth) {
+            yon=3;
+          }
+        }
+        
+        // Hareket Top:- Left:+
+        if (yon==2) {
+          mytop--;
+          myleft++;
+          myAnimateBox.style.top = mytop + "px";
+          myAnimateBox.style.left = myleft + "px";
+          posTop.innerHTML = mytop;
+          posLeft.innerHTML = myleft;
+          if (mytop==0) {
+            yon=1;
+          }
+          if(myleft==window.innerWidth) { //dokunma
+            yon=4;
+          }
+        }
+        // Hareket Top:+ Left:-
+        if (yon==3) {
+          mytop++;
+          myleft--;
+          myAnimateBox.style.top = mytop + "px";
+          myAnimateBox.style.left = myleft + "px";
+          posTop.innerHTML = mytop;
+          posLeft.innerHTML = myleft;
+          if (mytop==window.innerHeight) {
+            yon=4;
+          }
+          if (myleft==0) {
+            yon=1;
+          }
+        }
+        // Hareket Top:- Left:-
+        if (yon==4) {
+          mytop--;
+          myleft--;
+          myAnimateBox.style.top = mytop + "px";
+          myAnimateBox.style.left = myleft + "px";
+          posTop.innerHTML = mytop;
+          posLeft.innerHTML = myleft;
+          if (mytop==0) {
+            yon=3;
+          }
+          if (myleft==window.innerWidth) {
+            yon=2;
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
